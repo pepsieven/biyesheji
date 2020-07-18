@@ -1,0 +1,57 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    initialization-mode: always
+    url: jdbc:mysql://localhost:3306/pepsi_work
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 'x'
+      test-while-idle: true
+      test-on-borrow: true
+      test-on-return: false
+      pool-prepared-statements: true
+      #  配置监控统计拦截的filters，去掉监控界面sql无法统计，'wall'用于防火墙
+      max-pool-prepared-statement-per-connection-size: 20
+      max-open-prepared-statements: 20
+      use-global-data-source-stat: true
+      max-evictable-idle-time-millis: 60000
+      filters: stat,wall
+      query-timeout: 2000
+  servlet:
+    multipart:
+      max-file-size: 64000MB
+      max-request-size: 64000MB
+
+#   配置mybatis-plus
+mybatis-plus:
+  configuration:
+    #这个配置会将执行的sql打印出来，在开发或者测试的时候可以使用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #驼峰下划线转换
+    map-underscore-to-camel-case: true
+    #配置的缓存的全局开关
+    cache-enabled: true
+    #延时加载的开关
+    lazy-loading-enabled: true
+    #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载
+    multiple-result-sets-enabled: true
+    use-generated-keys: true
+    default-statement-timeout: 60
+    default-fetch-size: 100
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: disabled
+server:
+  port: 8181
+logging:
+  config:
